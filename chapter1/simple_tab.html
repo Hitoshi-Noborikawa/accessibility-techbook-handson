@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="tab1" role="tab" aria-selected="true" aria-controls="panel1" aria-labelledby="tab1">
+    タブ1
+  </button>
+  <button id="tab2" role="tab" aria-selected="false" aria-controls="panel2" aria-labelledby="tab2" tabindex="-1">
+    タブ2
+  </button>
+
+  <div id="panel1" role="tabpanel" aria-labelledby="tab1" style="width: 200px; margin-top: 10px; border: 1px solid #ccc; padding: 16px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    タブ1の内容
+  </div>
+  <div id="panel2" role="tabpanel" aria-labelledby="tab2" hidden style="width: 200px; margin-top: 10px; border: 1px solid #ccc; padding: 16px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    タブ2の内容
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('[role="tab"]');
+    const panels = document.querySelectorAll('[role="tabpanel"]');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.setAttribute('aria-selected', 'false');
+          panels.forEach(p => p.hidden = true);
+        });
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = false;
+      });
+    });
+  </script>
+</body>
+</html>
